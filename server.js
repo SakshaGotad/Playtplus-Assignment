@@ -1,4 +1,5 @@
 const express = require ('express');
+require('./cron/cronJobs');
 const app = express();
 const  authRoutes = require('./routes/authentication');
 const  eventRoutes = require('./routes/events');
