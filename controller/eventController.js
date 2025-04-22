@@ -17,4 +17,17 @@ const createEvent=async ( req, res)=>{
     }
 }
 
-module.exports ={createEvent};
+
+const getAllEvent = async(req,res)=>{
+    try {
+        const events = await Event.find().populate('createdBy', 'email');
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+
+
+
+module.exports ={createEvent , getAllEvent};
