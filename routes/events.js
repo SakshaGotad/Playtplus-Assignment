@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authControllers = require('../controller/authController');
+const EventController = require('../controller/authController');
 
-router.route('/register').post(authControllers.register);
-router.route('/login').post(authControllers.login);
 
+router.get('/events', EventController.getAllEvents);
+router.get('/events/:id', EventController.getEventById);
+router.post('/events', validateToken, EventController.createEvent);
+router.put('/events/:id', validateToken, EventController.updateEvent);
+router.delete('/events/:id', validateToken, EventController.deleteEvent);x``
 
 module.exports = router;
