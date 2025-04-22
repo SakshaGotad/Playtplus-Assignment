@@ -28,6 +28,13 @@ const getAllEvent = async(req,res)=>{
 }
 
 
+const getEventById = async(req, res)=>{
+    try {
+        const event = await Event.findById(req.params.id).populate('createdBy', 'email');
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ error: err.message });
+    }
+}
 
-
-module.exports ={createEvent , getAllEvent};
+module.exports ={createEvent , getAllEvent, getEventById};
