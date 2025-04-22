@@ -53,4 +53,20 @@ const updateEvent = async(req, res)=>{
       }
 }
 
-module.exports ={createEvent , getAllEvent, getEventById, updateEvent};
+const deleteEvent= async(req, res)=>{
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+    
+        if (event.createdBy.toString() !== req.userId) {
+          return res.status(403).json({ message: 'Not authorized to delete this event' });
+        }
+    
+        await Event.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Event deleted successfully' });
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}
+
+module.exports ={createEvent , getAllEvent, getEventById, updateEvent , deleteEvent};
