@@ -37,4 +37,20 @@ const getEventById = async(req, res)=>{
     }
 }
 
-module.exports ={createEvent , getAllEvent, getEventById};
+const updateEvent = async(req, res)=>{
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+    
+        if (event.createdBy.toString() !== req.userId) {
+          return res.status(403).json({ message: 'Not authorized to update this event' });
+        }
+    
+        const updated = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updated);
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}
+
+module.exports ={createEvent , getAllEvent, getEventById, updateEvent};
