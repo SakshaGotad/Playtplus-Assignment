@@ -18,8 +18,9 @@
 
 ## Installation
 ```bash
- npm install bcrypt cors dotenv express jsonwebtoken moment mongodb mongoose node-cron nodemon
+npm install bcrypt cors dotenv express jsonwebtoken moment mongodb mongoose node-cron nodemon
+````
 
-1. Clone the repository:
+
 ```bash
 git clone https://github.com/your-username/playtplus_assignment.git
