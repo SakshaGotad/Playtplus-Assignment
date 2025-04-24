@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const User = require('../models/userModel');
 const eventSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -17,13 +17,10 @@ const eventSchema = new mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
+    ref: User, 
     required: true,
   },
-  upvotes: {
-    type: Number,
-    default: 0,
-  },
+  
 }, {
   timestamps: true,
 });

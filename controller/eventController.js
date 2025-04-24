@@ -1,8 +1,8 @@
 const Event = require('../models/eventModel');
-
+const User = require('../models/userModel');
 const createEvent=async ( req, res)=>{
     try {
-        const{title,    description , data , location} = req.body;
+        const{title,    description , date , location} = req.body;
         const newEvent =  await Event({
             title,
             description,
@@ -13,7 +13,7 @@ const createEvent=async ( req, res)=>{
         const savedEvent = await newEvent.save();
         res.status(200).json(savedEvent);
     } catch (error) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -23,7 +23,7 @@ const getAllEvent = async(req,res)=>{
         const events = await Event.find().populate('createdBy', 'email');
         res.json(events);
     } catch (error) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -33,7 +33,7 @@ const getEventById = async(req, res)=>{
         const event = await Event.findById(req.params.id).populate('createdBy', 'email');
         res.json(event);
     } catch (error) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -48,8 +48,8 @@ const updateEvent = async(req, res)=>{
     
         const updated = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updated);
-      } catch (err) {
-        res.status(500).json({ error: err.message });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
       }
 }
 

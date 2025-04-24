@@ -32,7 +32,7 @@ const login = async(req,res) =>{
         if(!findUser){
             res.status(400).json({message:"user not exist"});
         } 
-        const isPassmatch = await bcrypt.compare(password , findUser.password);
+        const isPassmatch = bcrypt.compare(password , findUser.password);
 
         if(!isPassmatch){
             const error = new Error('invalid credentials')
@@ -40,7 +40,7 @@ const login = async(req,res) =>{
             throw error;
         }
         const accessToken = jwt.sign({email:email , userId:findUser._id,}, process.env.SECRET_KEY,{expiresIn:"1h"});
-        res.status(200).json({message:'logged in successfully', status:true, token:accessToken});
+        res.status(200).json({message:'logged in successfully', status:true, token:accessToken , id:User._id});
     } catch (error) {
         console.error(error); 
     }
